@@ -15,7 +15,7 @@
         "frameRate"     : 60,
         "showFPS"       : true,
         "id"            : "gameCanvas",
-        "renderMode"    : 2  // 拖尾特效只支持 WebGL
+        "renderMode"    : 2  // 拖尾特效似乎只支持 WebGL
     };
 
     cc.game.onStart = function(){
@@ -29,9 +29,17 @@
 
         cc.LoaderScene.preload(['res/star.png', 'res/streak.png'], function () {
             var scene = new cc.Scene();
+            var winSize = cc.director.getWinSize();
             scene.addChild(new cc.LayerColor(cc.color.BLACK), 1);
-
-            scene.addChild(new MainLayer(), 2);
+            var titleLabel = new cc.LabelTTF('拖尾特效', 'Microsoft Yahei', 60);
+            titleLabel.setPosition(winSize.width / 2, winSize.height / 2 + 100);
+            titleLabel.setColor(cc.color(0, 255, 0));
+            scene.addChild(titleLabel, 2);
+            var introLabel = new cc.LabelTTF('拖尾特效似乎只支持 WebGL', 'Microsoft Yahei', 40);
+            introLabel.setPosition(winSize.width / 2, winSize.height / 2 - 100);
+            introLabel.setColor(cc.color(128, 128, 128));
+            scene.addChild(introLabel, 2);
+            scene.addChild(new MainLayer(), 10);
             cc.director.runScene(scene);
         }, this);
     };
