@@ -27,11 +27,11 @@
         cc.view.setOrientation(cc.ORIENTATION_PORTRAIT);
         cc.view.resizeWithBrowserSize(true);
 
-        cc.LoaderScene.preload(['res/star.png', 'res/streak.png'], function () {
+        cc.LoaderScene.preload(['res/streak.png'], function () {
             var scene = new cc.Scene();
             var winSize = cc.director.getWinSize();
             scene.addChild(new cc.LayerColor(cc.color.BLACK), 1);
-            var titleLabel = new cc.LabelTTF('拖尾特效', 'Microsoft Yahei', 60);
+            var titleLabel = new cc.LabelTTF('拖尾特效2', 'Microsoft Yahei', 60);
             titleLabel.setPosition(winSize.width / 2, winSize.height / 2 + 100);
             titleLabel.setColor(cc.color(0, 255, 0));
             scene.addChild(titleLabel, 2);

@@ -57,13 +57,12 @@ var MainLayer = cc.Layer.extend({
         var touchListener = cc.EventListener.create({
             prevTouchId: -1,
             event: cc.EventListener.TOUCH_ALL_AT_ONCE,
+            onTouchesBegan:function (touches, event) {
+                me.streak.reset();
+                processEvent(touches[0]);
+            },
             onTouchesMoved:function (touches, event) {
-                var touch = touches[0];
-                if (this.prevTouchId != touch.getID()) {
-                    this.prevTouchId = touch.getID();
-                } else {
-                    processEvent(touches[0]);
-                }
+                processEvent(touches[0]);
             }
         });
         cc.eventManager.addListener(touchListener, this);
