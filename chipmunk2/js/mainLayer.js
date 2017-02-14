@@ -19,16 +19,12 @@ var MainLayer = cc.Layer.extend({
         this.scheduleUpdate();
 
         var me = this;
-        setInterval(function () {
-            var x = cc.random0To1() * cc.visibleRect.width / 3 * 2 + cc.visibleRect.left.x + 80;
-            me.addBox(cc.p(x, 700));
+        var t = setInterval(function () {
+            me.addCircle(cc.pAdd(cc.visibleRect.bottomLeft, cc.p(50, 50)), cp.v(cc.random0To1() * 500, cc.random0To1() * 500));
         }, 1000);
         setTimeout(function () {
-            setInterval(function () {
-                var x = cc.random0To1() * cc.visibleRect.width / 3 * 2 + cc.visibleRect.left.x + 80;
-                me.addCircle(cc.p(x, 700));
-            }, 1000);
-        }, 500);
+            clearInterval(t);
+        }, 20010);
     },
 
     initPhysics : function () {
@@ -68,13 +64,13 @@ var MainLayer = cc.Layer.extend({
             // 弹性
             wall.setElasticity(1);
             // 摩擦力
-            wall.setFriction(1);
+            wall.setFriction(0);
             // 加入固定不动的物体（墙）到物理空间
             space.addStaticShape(wall);
         }
 
-        // 重力向下
-        space.gravity = cp.v(0, -300);
+        // 没有重力
+        space.gravity = cp.v(0, 0);
     },
 
     // 添加一个方形
@@ -103,15 +99,15 @@ var MainLayer = cc.Layer.extend({
         // 弹性
         shape.setElasticity(1);
         // 摩擦力
-        shape.setFriction(0.5);
+        shape.setFriction(0);
         // 加入到物理空间
         this.space.addShape(shape);
 
         this.addChild(sprite);
     },
 
-    // 添加一个圆形
-    addCircle: function (pos) {
+    // 添加一个圆形，并指定速度向量
+    addCircle: function (pos, vel) {
         // cocos 的物理引擎专用 sprite
         var sprite = new cc.PhysicsSprite('res/circle-red.png');
         var size = sprite.getContentSize();
@@ -125,8 +121,9 @@ var MainLayer = cc.Layer.extend({
         // 惯性力矩是用来判断一个物体在受到力矩作用时，容不容易绕着中心轴转动的数值。
         // 然后是物体的内径和外径。实心圆的内径为0。
         // 最后是重心位置，相对于圆心的偏移量。
-        var body = new cp.Body(1, cp.momentForCircle(1, 0, radius, cp.vzero));
+        var body = new cp.Body(1000, cp.momentForCircle(1, 0, radius, cp.vzero));
         body.setPos(pos);
+        body.setVel(vel);
         this.space.addBody(body);
 
         // cocos 的 sprite 关联到 chipmunk 的物体
@@ -138,7 +135,7 @@ var MainLayer = cc.Layer.extend({
         // 弹性
         shape.setElasticity(1);
         // 摩擦力
-        shape.setFriction(0.5);
+        shape.setFriction(0);
         // 加入到物理空间
         this.space.addShape(shape);
 
