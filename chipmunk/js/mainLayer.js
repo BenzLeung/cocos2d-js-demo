@@ -26,7 +26,7 @@ var MainLayer = cc.Layer.extend({
         setTimeout(function () {
             setInterval(function () {
                 var x = cc.random0To1() * cc.visibleRect.width / 3 * 2 + cc.visibleRect.left.x + 80;
-                me.addCircle(cc.p(x, 700));
+                me.addBall(cc.p(x, 700));
             }, 1000);
         }, 500);
     },
@@ -111,7 +111,7 @@ var MainLayer = cc.Layer.extend({
     },
 
     // 添加一个圆形
-    addCircle: function (pos) {
+    addBall: function (pos) {
         // cocos 的物理引擎专用 sprite
         var sprite = new cc.PhysicsSprite('res/circle-red.png');
         var size = sprite.getContentSize();

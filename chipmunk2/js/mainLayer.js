@@ -20,7 +20,7 @@ var MainLayer = cc.Layer.extend({
 
         var me = this;
         var t = setInterval(function () {
-            me.addCircle(cc.pAdd(cc.visibleRect.bottomLeft, cc.p(50, 50)), cp.v(cc.random0To1() * 500, cc.random0To1() * 500));
+            me.addBall(cc.pAdd(cc.visibleRect.bottomLeft, cc.p(50, 50)), cp.v(cc.random0To1() * 500, cc.random0To1() * 500));
         }, 1000);
         setTimeout(function () {
             clearInterval(t);
@@ -107,7 +107,7 @@ var MainLayer = cc.Layer.extend({
     },
 
     // 添加一个圆形，并指定速度向量
-    addCircle: function (pos, vel) {
+    addBall: function (pos, vel) {
         // cocos 的物理引擎专用 sprite
         var sprite = new cc.PhysicsSprite('res/circle-red.png');
         var size = sprite.getContentSize();
